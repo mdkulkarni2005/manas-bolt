@@ -11,9 +11,13 @@ import {
   import { useContext } from "react";
   import { UserDetailContext } from "@/context/UserDetailContext";
   import axios from "axios";
+import uuid4 from "uuid4";
+import { useMutation } from "convex/react";
+import { api } from "@/convex/_generated/api";
   
   function SignInDialog({ openDialog, closeDialog }) {
     const { userDetail, setUserDetail } = useContext(UserDetailContext);
+    const CreateUser=useMutation(api.users.CreateUser)
   
     const googleLogin = useGoogleLogin({
       onSuccess: async (tokenResponse) => {
@@ -24,6 +28,19 @@ import {
         );
   
         console.log(userInfo);
+        const user=userInfo.data
+        await CreateUser({
+            name:user?.name,
+            email:user?.email,
+            picture:user?.picture,
+            uid:uuid4()
+        })
+
+        if(typeof window!== undefined)
+        {
+            localStorage.setItem("user",JSON.stringify(user))
+        }
+
         setUserDetail(userInfo?.data);
         closeDialog(false);
       },
@@ -35,7 +52,6 @@ import {
         <DialogContent>
           <DialogHeader>
             <DialogTitle />
-            {/* Move h2 outside DialogDescription */}
             <h2 className="font-bold text-2xl text-center text-white">
               {Lookup.SIGNIN_HEADING}
             </h2>
