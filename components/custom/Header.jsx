@@ -3,7 +3,7 @@ import React from "react";
 import { Button } from "../ui/button";
 import Color from "@/data/Color";
 
-const Header = () => {
+function Header () {
   return (
     <div className="p-4 flex justify-between items-center">
       <Image src={"/bolt.png"} alt="Logo" width={40} height={40} />
