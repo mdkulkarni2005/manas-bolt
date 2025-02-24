@@ -1,29 +1,42 @@
 "use client";
 
-import { MessageContext } from "@/context/MessagesContext";
+import { MessagesContext } from "@/context/MessagesContext";
 import { UserDetailContext } from "@/context/UserDetailContext";
 import Color from "@/data/Color";
 import Lookup from "@/data/Lookup";
 import { ArrowRight, Link, Link2 } from "lucide-react";
 import React, { useContext, useState } from "react";
 import SignInDialog from "./SignInDialog";
+import { useMutation } from "convex/react";
+import { api } from "@/convex/_generated/api";
+import { useRouter } from "next/navigation";
 
 function Hero() {
   const [userInput, setUserInput] = useState();
-  const { message, setMessage } = useContext(MessageContext);
+  const { messages, setMessages} = useContext(MessagesContext);
   const {userDetail,setUserDetail}=useContext(UserDetailContext)
   const [openDialog,setOpenDialog]=useState(false)
+  const CreateWorkspace=useMutation(api.workspace.CreateWorkspace)
+  const router=useRouter()
 
-  const onGenerate = (input) => {
+  const onGenerate = async (input) => {
     if(!userDetail?.name)
     {
         setOpenDialog(true)
         return
     }
-    setMessage({
+    const msg={
       role: "user",
       content: input,
-    });
+    }
+    setMessages(msg);
+
+    const workspaceId=await CreateWorkspace({
+      user:userDetail._id,
+      messages: [msg]
+    })
+    console.log(workspaceId)
+    router.push('/workspace/'+workspaceId)
   };
 
   return (

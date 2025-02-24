@@ -3,14 +3,14 @@
 import React, { useEffect, useState } from "react";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 import Header from "@/components/custom/Header";
-import { MessageContext } from "@/context/MessagesContext";
+import { MessagesContext } from "@/context/MessagesContext";
 import { UserDetailContext } from "@/context/UserDetailContext";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { useConvex } from "convex/react";
 import { api } from "@/convex/_generated/api";
 
 function Provider({ children }) {
-  const [message, setMessage] = useState();
+  const [messages, setMessages] = useState();
   const [userDetail, setUserDetail] = useState();
   const convex=useConvex()
 
@@ -34,7 +34,7 @@ function Provider({ children }) {
     <div>
       <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_AUTH_CLIENT_ID_KEY}>
         <UserDetailContext.Provider value={{ userDetail, setUserDetail }}>
-          <MessageContext.Provider value={{ message, setMessage }}>
+          <MessagesContext.Provider value={{ messages, setMessages }}>
             <NextThemesProvider
               attribute="class"
               defaultTheme="dark"
@@ -44,7 +44,7 @@ function Provider({ children }) {
               <Header />
               {children}
             </NextThemesProvider>
-          </MessageContext.Provider>
+          </MessagesContext.Provider>
         </UserDetailContext.Provider>
       </GoogleOAuthProvider>
     </div>
