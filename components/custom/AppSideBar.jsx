@@ -11,12 +11,15 @@ import { Button } from "../ui/button";
 import { MessageCircleCode } from "lucide-react";
 import WorkspaceHistory from "./WorkspaceHistory";
 import SideBarFooter from "./SideBarFooter";
+import Link from "next/link";
 
 function AppSideBar() {
   return (
     <Sidebar>
       <SidebarHeader className="p-5">
-        <Image src={"/bolt.png"} alt="logo" width={30} height={30} />
+        <Link href="/">
+          <Image src={"/bolt.png"} alt="logo" width={30} height={30} />
+        </Link>
         <Button className="mt-5">
           <MessageCircleCode /> Start New Chat
         </Button>

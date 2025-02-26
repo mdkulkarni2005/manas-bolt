@@ -16,6 +16,13 @@ import Markdown from "react-markdown";
 import ReactMarkdown from "react-markdown";
 import { useSidebar } from "../ui/sidebar";
 
+export const countToken = (inputText) => {
+  return inputText
+    .trim()
+    .split(/\s+/)
+    .filter((word) => word).length;
+};
+
 function ChatView() {
   const { id } = useParams();
   const convex = useConvex();
@@ -24,7 +31,8 @@ function ChatView() {
   const [userInput, setUserInput] = useState();
   const [loading, setLoading] = useState(false);
   const UpdateMessages = useMutation(api.workspace.UpdateMessages);
-  const {toggleSidebar}=useSidebar()
+  const { toggleSidebar } = useSidebar();
+  const UpdateTokens = useMutation(api.users.UpdateToken);
 
   useEffect(() => {
     id && GetWorkspaceData();
@@ -58,9 +66,18 @@ function ChatView() {
       content: result.data.result,
     };
     setMessages((prev) => [...prev, aiResp]);
+
     await UpdateMessages({
       messages: [...messages, aiResp],
       workspaceId: id,
+    });
+
+    const token =
+      Number(userDetail?.token) - Number(countToken(JSON.stringify(aiResp)));
+    //Update Token in Database
+    await UpdateTokens({
+      userId: userDetail?._id,
+      token: token,
     });
     setLoading(false);
   };
@@ -116,7 +133,16 @@ function ChatView() {
 
       {/* input section */}
       <div className="flex gap-2 items-end">
-        {userDetail&&<Image className="rounded-full cursor-pointer" onClick={toggleSidebar} src={userDetail?.picture} alt="user" width={30} height={30} />}
+        {userDetail && (
+          <Image
+            className="rounded-full cursor-pointer"
+            onClick={toggleSidebar}
+            src={userDetail?.picture}
+            alt="user"
+            width={30}
+            height={30}
+          />
+        )}
         <div
           className="p-5 border rounded-xl max-w-xl w-full mt-3"
           style={{
