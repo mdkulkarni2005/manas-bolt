@@ -8,31 +8,34 @@ import { UserDetailContext } from "@/context/UserDetailContext";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { useConvex } from "convex/react";
 import { api } from "@/convex/_generated/api";
+import { SidebarProvider } from "@/components/ui/sidebar";
+import AppSideBar from "@/components/custom/AppSideBar";
 
 function Provider({ children }) {
   const [messages, setMessages] = useState();
   const [userDetail, setUserDetail] = useState();
-  const convex=useConvex()
+  const convex = useConvex();
 
   useEffect(() => {
-    IsAutheicated()
+    IsAutheicated();
   }, []);
 
-  const IsAutheicated=async()=>{
-    if(typeof window!==undefined)
-    {
-      const user=JSON.parse(localStorage.getItem('user'))
-      const result=await convex.query(api.users.GetUser,{
-        email:user?.email
-      })
-      setUserDetail(result)
-      console.log(result)
+  const IsAutheicated = async () => {
+    if (typeof window !== undefined) {
+      const user = JSON.parse(localStorage.getItem("user"));
+      const result = await convex.query(api.users.GetUser, {
+        email: user?.email,
+      });
+      setUserDetail(result);
+      console.log(result);
     }
-  }
+  };
 
   return (
     <div>
-      <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_AUTH_CLIENT_ID_KEY}>
+      <GoogleOAuthProvider
+        clientId={process.env.NEXT_PUBLIC_GOOGLE_AUTH_CLIENT_ID_KEY}
+      >
         <UserDetailContext.Provider value={{ userDetail, setUserDetail }}>
           <MessagesContext.Provider value={{ messages, setMessages }}>
             <NextThemesProvider
@@ -42,7 +45,10 @@ function Provider({ children }) {
               disableTransitionOnChange
             >
               <Header />
-              {children}
+              <SidebarProvider defaultOpen={false}>
+                <AppSideBar />
+                {children}
+              </SidebarProvider>
             </NextThemesProvider>
           </MessagesContext.Provider>
         </UserDetailContext.Provider>
