@@ -1,36 +1,124 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Manas Bolt
 
-## Getting Started
+A Next.js project with Gemini AI integration, Google Authentication, and Convex backend.
 
-First, run the development server:
+## Project Overview
 
+Manas Bolt is a web application built with Next.js that integrates Google's Gemini AI, Google Authentication, and uses Convex as a backend database solution.
+
+## Features
+
+- Next.js 15.1 application framework
+- Google Authentication via @react-oauth/google
+- Gemini AI integration with @google/generative-ai
+- Convex backend for data management
+- Sandpack code editor integration
+- Responsive UI with Tailwind CSS and Radix UI components
+
+## Prerequisites
+
+Before you begin, ensure you have:
+
+- Node.js (latest LTS version recommended)
+- npm or yarn package manager
+- A Google Cloud Platform account for authentication and Gemini API
+- A Convex account for backend services
+
+## Environment Variables
+
+Create a `.env` file in the root directory with the following variables:
+
+```
+NEXT_PUBLIC_GOOGLE_AUTH_CLIENT_ID_KEY=
+CONVEX_DEPLOYMENT=
+NEXT_PUBLIC_CONVEX_URL=your_convex_url
+NEXT_PUBLIC_GEMINI_API_KEY=
+```
+
+### How to obtain these values:
+
+1. **NEXT_PUBLIC_GOOGLE_AUTH_CLIENT_ID_KEY**: 
+   - Go to the [Google Cloud Console](https://console.cloud.google.com)
+   - Create a project and enable the Google OAuth API
+   - Create credentials for a web application to get your client ID
+
+2. **CONVEX_DEPLOYMENT** and **NEXT_PUBLIC_CONVEX_URL**:
+   - Sign up at [Convex](https://www.convex.dev/)
+   - Create a new project
+   - These values will be provided in your project dashboard
+
+3. **NEXT_PUBLIC_GEMINI_API_KEY**:
+   - Go to the [Google AI Studio](https://aistudio.google.com/)
+   - Get an API key for the Gemini model
+
+## Installation
+
+1. Clone the repository:
+```bash
+git clone https://github.com/mdkulkarni2005/manas-bolt-testing-1.git
+cd manas-bolt-testing-1
+```
+
+2. Install dependencies:
+```bash
+npm install
+# or
+yarn install
+```
+
+3. Start the development server:
 ```bash
 npm run dev
 # or
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+4. Start the Convex development server in a separate terminal:
+```bash
+npx convex dev
+```
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+5. Open [http://localhost:3000](http://localhost:3000) in your browser to see the application.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Project Structure
 
-## Learn More
+- `/app` - Next.js application routes and pages
+- `/components` - Reusable UI components
+- `/configs` - Configuration files
+- `/context` - React context providers
+- `/convex` - Convex schema and functions
+- `/data` - Static data files
+- `/hooks` - Custom React hooks
+- `/lib` - Utility functions and libraries
+- `/public` - Static assets
 
-To learn more about Next.js, take a look at the following resources:
+## Deployment
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The project can be deployed on Vercel or any other Next.js-compatible hosting service:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. Connect your repository to Vercel
+2. Set up the environment variables
+3. Deploy the application
 
-## Deploy on Vercel
+For Convex backend deployment, follow the instructions in the [Convex documentation](https://docs.convex.dev/production/deployment).
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Contributing
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. Fork the repository
+2. Create your feature branch: `git checkout -b feature/amazing-feature`
+3. Commit your changes: `git commit -m 'Add some amazing feature'`
+4. Push to the branch: `git push origin feature/amazing-feature`
+5. Open a Pull Request
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Acknowledgments
+
+- [Next.js](https://nextjs.org/)
+- [Convex](https://www.convex.dev/)
+- [Google AI](https://ai.google/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Radix UI](https://www.radix-ui.com/)
+- [Sandpack](https://sandpack.codesandbox.io/)
