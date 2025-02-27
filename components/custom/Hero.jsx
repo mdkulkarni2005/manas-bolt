@@ -40,11 +40,11 @@ function Hero() {
   };
 
   return (
-    <div className="flex flex-col items-center mt-36 xl:mt-52 gap-2">
+    <div className="flex flex-col items-start ml-8 md:ml-16 mt-36 xl:mt-52 gap-2 max-w-2xl">
       <h2 className="font-bold text-4xl">{Lookup.HERO_HEADING}</h2>
       <p className="text-gray-400 font-medium">{Lookup.HERO_DESC}</p>
       <div
-        className="p-5 border rounded-xl max-w-xl w-full mt-3"
+        className="p-5 border rounded-xl w-full mt-3"
         style={{
           backgroundColor: Color.BACKGROUND,
         }}
@@ -67,7 +67,7 @@ function Hero() {
         </div>
       </div>
 
-      <div className="flex mt-8 flex-wrap max-w-2xl items-center justify-center gap-3">
+      <div className="flex mt-8 flex-wrap items-start justify-start gap-3">
         {Lookup?.SUGGSTIONS.map((suggestion, index) => (
           <h2
             className="p-1 px-2 border rounded-full text-sm text-gray-400 hover:text-white cursor-pointer"

@@ -14,13 +14,17 @@ function SideBarFooter() {
         },
         {
             name:'My Subscription',
-            icon:Wallet
+            icon:Wallet,
         },
         {
             name:'Sign Out',
             icon:LogOut
         },
     ]
+
+    const onOptionClick = (path) => {
+        console.log(path)
+    }
   return (
     <div className='p-2 mb-10'>
         {options.map((option,index)=>(

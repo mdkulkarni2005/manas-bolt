@@ -23,11 +23,13 @@ function Provider({ children }) {
   const IsAutheicated = async () => {
     if (typeof window !== undefined) {
       const user = JSON.parse(localStorage.getItem("user"));
-      const result = await convex.query(api.users.GetUser, {
-        email: user?.email,
-      });
-      setUserDetail(result);
-      console.log(result);
+      if (user && user.email) {
+        const result = await convex.query(api.users.GetUser, {
+          email: user.email,
+        });
+        setUserDetail(result);
+        console.log(result);
+      }
     }
   };
 

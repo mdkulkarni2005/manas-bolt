@@ -1,3 +1,17 @@
-import { createContext } from "react";
+import { createContext, useState } from "react";
 
-export const MessagesContext=createContext()
+// Create context with default value as an empty array
+export const MessagesContext = createContext({
+  messages: [],
+  setMessages: () => {}
+});
+
+export const MessagesProvider = ({ children }) => {
+  const [messages, setMessages] = useState([]);
+  
+  return (
+    <MessagesContext.Provider value={{ messages, setMessages }}>
+      {children}
+    </MessagesContext.Provider>
+  );
+};
